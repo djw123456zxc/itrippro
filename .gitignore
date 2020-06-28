@@ -1,0 +1,9 @@
+# Project exclude paths
+/itrip-auth/target/
+/itrip-beans/target/
+/itrip-bjz/target/
+/itrip-dao/target/
+/itrip-search/target/
+/itrip-trade/target/
+/itrip-utils/target/
+/out/

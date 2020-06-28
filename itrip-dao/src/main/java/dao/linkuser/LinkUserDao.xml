@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.linkuser.LinkUserDao">
+<insert id="insertLinkUser">
+INSERT INTO `itrip_user_link_user`(`linkUserName`,`linkIdCard`,`linkPhone`,`userId`,`creationDate`,`createdBy`,`linkIdCardType`)
+VALUES(#{linkUserName},#{linkIdCard},#{linkPhone},#{userId},#{creationDate},#{createdBy},#{linkIdCardType})
+</insert>
+    <select id="selLinkUserByIdCard" resultType="LinkUser">
+       SELECT * FROM `itrip_user_link_user` WHERE linkIdCard=#{idCard}
+    </select>
+    <insert id="insertOrderLinkUser">
+       INSERT INTO `itrip_order_link_user`(`orderId`,`linkUserId`,`linkUserName`,`creationDate`,`createdBy`)
+       VALUES(#{orderId},#{linkUserId},#{linkUserName},#{creationDate},#{createdBy})
+    </insert>
+</mapper>

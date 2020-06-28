@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.hotel.SearchHotelDao">
+    <select id="selHotelRoomList" resultType="ItripHotelRoom">
+        SELECT * FROM itrip_hotel_room WHERE 1=1
+        <if test="hotelId != null and hotelId != 0">
+            and hotelId=#{hotelId}
+        </if>
+        <if test="isBook != null and isBook >= 0">
+            and isBook=#{isBook}
+        </if>
+        <if test="isHavingBreakfast != null and isHavingBreakfast >= 0">
+            and isHavingBreakfast=#{isHavingBreakfast}
+        </if>
+        <if test="isTimelyResponse != null and isTimelyResponse >= 0">
+            and isTimelyResponse=#{isTimelyResponse}
+        </if>
+        <if test="roomBedTypeId != null and roomBedTypeId >= 0">
+            and roomBedTypeId=#{roomBedTypeId}
+        </if>
+        <if test="isCancel != null and isCancel >= 0">
+            and isCancel=#{isCancel}
+        </if>
+        <if test="payType != null and payType >= 0">
+            and payType=#{payType}
+        </if>
+    </select>
+    <select id="selHotelCommentList" resultType="ItripComment">
+        SELECT * FROM itrip_comment WHERE 1=1
+        <if test="hotelId != null and hotelId != 0">
+            and hotelId=#{hotelId}
+        </if>
+        <if test="isHavingImg != null and isHavingImg != ''">
+            and isHavingImg=#{isHavingImg}
+        </if>
+        <if test="isOk != null and isOk != ''">
+            and isOk=#{isOk}
+        </if>
+        <if test="pageSize != null and pageNo != null">
+             limit #{pageNo},${pageSize}
+        </if>
+    </select>
+</mapper>

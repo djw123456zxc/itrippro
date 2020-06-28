@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.order.OrderDao">
+    <insert id="insertHotelOrder">
+INSERT INTO itrip_hotel_order(
+`userId`,
+`orderType`,
+`orderNo`,
+`tradeNo`,
+`hotelId`,
+`hotelName`,
+`roomId`,
+`count`,
+`bookingDays`,
+`checkInDate`,
+`checkOutDate`,
+`orderStatus`,
+`payAmount`,
+`payType`,
+`noticePhone`,
+`noticeEmail`,
+`specialRequirement`,
+`isNeedInvoice`,
+`invoiceType`,
+`invoiceHead`,
+`linkUserName`,
+`bookType`,
+`creationDate`,
+`createdBy`,
+`modifyDate`,
+`modifiedBy`
+)
+VALUES(
+#{userId},
+#{orderType},
+#{orderNo},
+#{tradeNo},
+#{hotelId},
+#{hotelName},
+#{roomId},
+#{count},
+#{bookingDays},
+#{checkInDate},
+#{checkOutDate},
+#{orderStatus},
+#{payAmount},
+#{payType},
+#{noticePhone},
+#{noticeEmail},
+#{specialRequirement},
+#{isNeedInvoice},
+#{invoiceType},
+#{invoiceHead},
+#{linkUserName},
+#{bookType},
+#{creationDate},
+#{createdBy},
+#{modifyDate},
+#{modifiedBy}
+)
+    </insert>
+    <select id="selHotelOrder" resultType="ItripHotelOrder">
+      SELECT * FROM `itrip_hotel_order` WHERE 1=1
+      <if test="uid!=null and uid>0">AND userId=#{uid}</if>
+        <if test="orderNo!=null and orderNo!=''"> AND orderNO=#{orderNo}</if>
+    </select>
+    <update id="modifyHotelOrder" parameterType="ItripHotelOrder">
+       UPDATE `itrip_hotel_order`
+       <trim prefix="set" suffixOverrides="," suffix="WHERE orderNo=#{orderNo}">
+        <if test="tradeNo != null and tradeNo != ''">tradeNo=#{tradeNo},</if>
+        <if test="orderStatus != null and orderStatus != ''">orderStatus=#{orderStatus},</if>
+        <if test="payType != null and payType != ''">payType=#{payType},</if>
+        <if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+    </trim>
+    </update>
+</mapper>

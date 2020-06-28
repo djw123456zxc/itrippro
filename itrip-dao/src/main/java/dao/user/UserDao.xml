@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.user.UserDao">
+     <select id="getUserListByUser" resultType="User">
+      SELECT * FROM `itrip_user` WHERE 1=1
+         <if test="id != null and id != 0">
+         and id=#{id}
+     </if>
+         <if test="userCode != null and userCode!=''">
+             and userCode = #{userCode}
+         </if>
+         <if test="userPassword != null and userPassword!=''">
+             and userPassword = #{userPassword}
+         </if>
+     </select>
+     <insert id="insertUser">
+      INSERT INTO `itrip_user`(`userCode`,`userPassword`,`userType`,`flatID`,`userName`,`weChat`,`QQ`,`weibo`,`baidu`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`activated`)
+      VALUES(#{userCode},#{userPassword},#{userType},#{flatID},#{userName},#{weChat},#{QQ},#{weibo},#{baidu},#{creationDate},#{createdBy},#{modifyDate},#{modifiedBy},0)
+     </insert>
+    <update id="updateUser">
+        update itrip_user
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="userCode != null and userCode != ''">userCode=#{userCode},</if>
+            <if test="userPassword != null and userPassword != ''">userPassword=#{userPassword},</if>
+            <if test="userType != null and userType != ''">userType=#{userType},</if>
+            <if test="flatID != null and flatID != 0">flatID=#{flatID},</if>
+            <if test="userName != null and userName !=''">userName=#{userName},</if>
+            <if test="weChat != null and weChat != ''">weChat=#{weChat},</if>
+            <if test="QQ != null and QQ != ''">QQ=#{QQ},</if>
+            <if test="weibo != null and weibo != ''">weibo=#{weibo},</if>
+            <if test="baidu != null and baidu != ''">baidu=#{baidu},</if>
+            <if test="creationDate != null and creationDate != ''">creationDate=#{creationDate},</if>
+            <if test="createdBy != null and createdBy != ''">createdBy=#{createdBy},</if>
+            <if test="modifyDate != null and modifyDate != ''">modifyDate=#{modifyDate},</if>
+            <if test="modifiedBy != null and modifiedBy != ''">modifiedBy=#{modifiedBy},</if>
+            <if test="activated != null and activated != ''">activated=#{activated},</if>
+        </trim>
+    </update>
+</mapper>

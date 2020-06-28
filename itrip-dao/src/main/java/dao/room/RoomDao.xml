@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.room.RoomDao">
+    <select id="getRoomListByHotelId" resultType="ItripHotelRoom">
+     SELECT * FROM `itrip_hotel_room` WHERE 1=1
+        <if test="hId!=null and hId>0">
+            AND hotelId=#{hId}
+        </if>
+        <if test="rId!=null and rId>0">
+            AND id=#{rId}
+        </if>
+    </select>
+    <select id="getTempStoreList" resultType="ItripHotelTempStore">
+    SELECT * FROM `itrip_hotel_temp_store`
+    WHERE 1=1
+        <if test="hId!=null and hId>0">
+            AND hotelId=#{hId}
+        </if>
+        <if test="rId!=null and rId>0">
+            AND roomId=#{rId}
+        </if>
+        <if test="Date!=null">
+            AND DATE_FORMAT(recordDate,'%e %b %y') = DATE_FORMAT(#{Date},'%e %b %y')
+        </if>
+    </select>
+    <select id="getProductStoreByid" resultType="ItripProductStore">
+        SELECT * FROM `itrip_product_store` WHERE productType=1 AND productId=#{rId}
+    </select>
+    <insert id="insertTempStore">
+         insert into itrip_hotel_temp_store(
+                        hotelId,
+                        roomId,
+                        recordDate,
+                        store,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
+        values(
+                     #{hotelId},
+                     #{roomId},
+                     #{recordDate},
+                     #{store},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
+    </insert>
+    <select id="getminTempSotre" resultType="int">
+        SELECT MIN(store) FROM `itrip_hotel_temp_store`
+         WHERE hotelId=#{hId}
+         AND roomId=#{rId}
+         AND recordDate
+         BETWEEN #{inDate}
+         AND #{outDate}
+    </select>
+    <update id="modifyTempStroecount">
+        UPDATE `itrip_hotel_temp_store` SET store=#{Count}
+        WHERE hotelId=#{hId}
+        AND roomId=#{rId}
+        AND DATE_FORMAT(recordDate,'%e %b %y') = DATE_FORMAT(#{Date},'%e %b %y')
+    </update>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean  id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.qq.com"></property>
+        <property name="port" value="465"></property>
+        <property name="username" value="1965699077@qq.com"></property>
+        <property name="password" value="ubzsdgqxvfhrcagb"></property>
+        <property name="defaultEncoding" value="UTF-8"> </property>         		<property name="javaMailProperties">
+        <props>
+            <!-- 设置SMTP服务器需要用户验证 -->
+            <prop key="mail.smtp.auth">true</prop>
+            <!-- 开启SSL安全验证 -->
+            <prop key="mail.smtp.ssl.enable">true</prop>
+            <prop key="mail.transport.protocol">smtps</prop>
+        </props>
+    </property>
+    </bean>
+
+    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
+        <property name="subject" value="[i旅行]请激活您的账户"></property>
+        <property name="from" value="1965699077@qq.com"></property>
+    </bean>
+</beans>   
